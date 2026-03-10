@@ -1,0 +1,12 @@
+{
+  "name": "maximten.horrorshop",
+  "version": "1.0.0",
+  "displayName": "Horror Shop",
+  "description": "Horror-themed asset package supporting URP, HDRP, and Built-in render pipelines.",
+  "author": {
+    "name": "maximten"
+  },
+  "dependencies": {
+    "com.unity.probuilder": "6.0.9"
+  }
+}

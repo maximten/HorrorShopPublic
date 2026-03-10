@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crimson Grill — Menu</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Neonderthaw&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #E8220A;
+    --yellow: #F5C200;
+    --cream: #FFF8EE;
+    --dark: #0E0804;
+    --mid: #1A1008;
+    --glass: rgba(14,8,4,0.72);
+    --glass-light: rgba(255,248,238,0.06);
+    --border: rgba(255,248,238,0.10);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0E0804;
+    font-family: 'DM Sans', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+  }
+
+  .board {
+    width: 1024px;
+    height: 1024px;
+    position: relative;
+    overflow: hidden;
+    background: var(--dark);
+  }
+
+  /* ── HERO PHOTO AREA ── */
+  .hero {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  /* Simulated burger photo using CSS art + emoji */
+  .burger-photo {
+    background-image: url("/home/doshirak/Workspace/Unity/HorrorBusinesses/Assets/HTML/BurgerPhoto.png");
+    position: relative;
+    width: 100%;
+    height: 100%;
+    /* background:
+      radial-gradient(ellipse 70% 55% at 50% 115%, #3D1F00 0%, transparent 65%),
+      radial-gradient(ellipse 120% 60% at 50% 100%, #241000 0%, transparent 55%),
+      radial-gradient(ellipse 80% 45% at 30% 0%, #1a0800 0%, transparent 70%),
+      radial-gradient(ellipse 60% 50% at 80% 10%, #1f0d00 0%, transparent 60%),
+      linear-gradient(170deg, #120700 0%, #2a1200 40%, #1a0900 70%, #0a0400 100%); */
+  }
+
+  /* Atmospheric steam / glow behind burger */
+  .burger-glow {
+    position: absolute;
+    bottom: 140px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 520px;
+    height: 320px;
+    background: radial-gradient(ellipse at 50% 80%, rgba(232,34,10,0.18) 0%, rgba(245,194,0,0.10) 30%, transparent 70%);
+    filter: blur(30px);
+    pointer-events: none;
+  }
+
+  .burger-surface-glow {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 700px;
+    height: 200px;
+    background: radial-gradient(ellipse at 50% 100%, rgba(50,22,0,0.9) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* The actual burger emoji — large, centered, near bottom */
+  .burger-emoji {
+    position: absolute;
+    bottom: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 220px;
+    line-height: 1;
+    filter:
+      drop-shadow(0 0 60px rgba(232,34,10,0.35))
+      drop-shadow(0 0 120px rgba(245,194,0,0.15))
+      drop-shadow(0 30px 40px rgba(0,0,0,0.8));
+    animation: floatBurger 5s ease-in-out infinite;
+    user-select: none;
+  }
+
+  @keyframes floatBurger {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(-10px); }
+  }
+
+  /* Subtle steam particles */
+  .steam {
+    position: absolute;
+    bottom: 310px;
+    left: 50%;
+    display: flex;
+    gap: 40px;
+    transform: translateX(-50%);
+  }
+  .steam-line {
+    width: 2px;
+    height: 60px;
+    background: linear-gradient(to top, rgba(255,200,100,0.18), transparent);
+    border-radius: 2px;
+    animation: steamRise 2.5s ease-in-out infinite;
+  }
+  .steam-line:nth-child(2) { animation-delay: 0.6s; height: 80px; }
+  .steam-line:nth-child(3) { animation-delay: 1.2s; height: 50px; }
+  @keyframes steamRise {
+    0% { opacity: 0; transform: translateY(0) scaleX(1); }
+    40% { opacity: 1; }
+    100% { opacity: 0; transform: translateY(-60px) scaleX(2); }
+  }
+
+  /* ── OVERLAY GRADIENTS ── */
+  .overlay-top {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 280px;
+    background: linear-gradient(to bottom, rgba(10,4,0,0.97) 0%, rgba(10,4,0,0.6) 60%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .overlay-bottom {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 380px;
+    background: linear-gradient(to top, rgba(10,4,0,0.98) 0%, rgba(10,4,0,0.75) 50%, transparent 100%);
+    pointer-events: none;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 44px;
+    z-index: 10;
+  }
+
+  .logo-block {}
+  .logo {
+    font-family: "Neonderthaw", cursive;
+    font-size: 72px;
+    line-height: 0.95;
+    letter-spacing: 2px;
+    color: var(--red);
+  }
+  .logo em {
+    color: var(--red);
+    font-style: normal;
+  }
+  .tagline {
+    font-size: 10.5px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: rgba(255,248,238,0.4);
+    margin-top: 5px;
+  }
+
+  .header-right {
+    text-align: right;
+  }
+  .menu-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    letter-spacing: 6px;
+    color: var(--cream);
+    opacity: 0.8;
+  }
+  .menu-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px;
+    letter-spacing: 3px;
+    color: var(--red);
+    line-height: 1;
+  }
+
+  /* Red accent line under header */
+  .header-line {
+    position: absolute;
+    top: 110px; left: 44px; right: 44px;
+    height: 1px;
+    background: linear-gradient(to right, var(--red), rgba(232,34,10,0.1));
+    z-index: 10;
+  }
+
+  /* ── BOTTOM MENU GRID ── */
+  .menu-bottom {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    z-index: 10;
+    padding: 0 28px 28px;
+  }
+
+  /* Center feature: active item big display */
+  .featured-row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+
+  /* Left column items (2) */
+  .side-col {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 280px;
+    flex-shrink: 0;
+  }
+
+  /* Center hero item card */
+  .hero-item {
+    flex: 1;
+    background: linear-gradient(135deg, rgba(232,34,10,0.15), rgba(245,194,0,0.06));
+    border: 1px solid rgba(232,34,10,0.35);
+    border-radius: 4px;
+    padding: 20px 24px 18px;
+    text-align: center;
+    position: relative;
+    backdrop-filter: blur(6px);
+  }
+  .hero-item::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(to right, var(--red), var(--yellow), var(--red));
+    border-radius: 4px 4px 0 0;
+  }
+  .hero-badge {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--yellow);
+    border: 1px solid rgba(245,194,0,0.4);
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+  }
+  .hero-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 40px;
+    letter-spacing: 2px;
+    color: var(--cream);
+    line-height: 1;
+  }
+  .hero-desc {
+    font-size: 11.5px;
+    color: rgba(255,248,238,0.5);
+    line-height: 1.55;
+    margin-top: 7px;
+    margin-bottom: 14px;
+  }
+  .hero-price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 56px;
+    color: var(--yellow);
+    line-height: 1;
+    letter-spacing: 1px;
+  }
+
+  /* Side item cards */
+  .side-item {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    backdrop-filter: blur(8px);
+    position: relative;
+    transition: border-color 0.2s;
+  }
+  .side-item::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 2px;
+    background: var(--red);
+    border-radius: 3px 0 0 3px;
+  }
+  .side-item.gold::before { background: var(--yellow); }
+
+  .side-emoji {
+    font-size: 28px;
+    flex-shrink: 0;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+  }
+  .side-info { flex: 1; min-width: 0; }
+  .side-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 0.5px;
+    color: var(--cream);
+    line-height: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .side-desc {
+    font-size: 10px;
+    color: rgba(255,248,238,0.38);
+    margin-top: 3px;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .side-price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+    color: var(--yellow);
+    flex-shrink: 0;
+  }
+
+  /* ── BOTTOM STRIP: remaining items ── */
+  .items-strip {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 8px;
+  }
+
+  .strip-item {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 10px 12px;
+    backdrop-filter: blur(8px);
+    position: relative;
+  }
+  .strip-item::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: var(--red);
+    opacity: 0.6;
+    border-radius: 3px 3px 0 0;
+  }
+  .strip-item.gold::after { background: var(--yellow); opacity: 0.8; }
+
+  .strip-emoji { font-size: 18px; display: block; margin-bottom: 5px; }
+  .strip-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14px;
+    letter-spacing: 0.3px;
+    color: var(--cream);
+    line-height: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .strip-price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    color: var(--yellow);
+    line-height: 1;
+    margin-top: 4px;
+  }
+  .strip-badge {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 20px;
+    background: var(--red);
+    color: white;
+    display: inline-block;
+    margin-top: 4px;
+  }
+  .strip-item.gold .strip-badge { background: var(--yellow); color: var(--dark); }
+
+  /* ── FOOTER ── */
+  .footer {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    z-index: 20;
+    background: rgba(0,0,0,0.5);
+  }
+  .footer span {
+    font-size: 10px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: rgba(255,248,238,0.28);
+  }
+  .fdot {
+    width: 3px; height: 3px;
+    border-radius: 50%;
+    background: var(--red);
+    opacity: 0.6;
+    flex-shrink: 0;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="board">
+
+  <!-- Photo-style background with burger -->
+  <div class="hero">
+    <div class="burger-photo"></div>
+  </div>
+
+  <!-- Atmospheric glows -->
+  <div class="burger-glow"></div>
+  <div class="burger-surface-glow"></div>
+
+  <!-- Steam -->
+  <div class="steam">
+    <div class="steam-line"></div>
+    <div class="steam-line"></div>
+    <div class="steam-line"></div>
+  </div>
+
+  <!-- Main burger -->
+  <!-- <div class="burger-emoji">🍔</div> -->
+
+  <!-- Top & bottom gradient overlays -->
+  <div class="overlay-top"></div>
+  <div class="overlay-bottom"></div>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="logo-block">
+      <div class="logo">Crimson Grill</div>
+      <!-- <div class="tagline">Handcrafted · Smashed Fresh Daily</div> -->
+    </div>
+    <div class="header-right">
+      <div class="menu-label">Signature Selection</div>
+      <div class="menu-title">BURGERS</div>
+    </div>
+  </div>
+  <div class="header-line"></div>
+
+  <!-- Bottom overlay menu -->
+  <div class="menu-bottom">
+
+    <!-- Featured row: 2 side items | hero | 2 side items -->
+    <div class="featured-row">
+
+      <!-- Left 2 items -->
+      <div class="side-col">
+        <div class="side-item gold">
+          <span class="side-emoji">🥓</span>
+          <div class="side-info">
+            <div class="side-name">Bacon Throne</div>
+            <div class="side-desc">Triple bacon weave, cheddar, jalapeños, smoky BBQ aioli</div>
+          </div>
+          <span class="side-price">$15</span>
+        </div>
+        <div class="side-item">
+          <span class="side-emoji">🧀</span>
+          <div class="side-info">
+            <div class="side-name">Cheese Avalanche</div>
+            <div class="side-desc">Four-cheese blend, fig jam, arugula, pretzel bun</div>
+          </div>
+          <span class="side-price">$14.25</span>
+        </div>
+      </div>
+
+      <!-- Hero center item -->
+      <div class="hero-item">
+        <div class="hero-badge">⭐ Fan Favourite</div>
+        <div class="hero-name">The Big Smash</div>
+        <div class="hero-desc">Double smashed patty · American cheese<br>Caramelized onions · House smash sauce · Brioche bun</div>
+        <div class="hero-price">$13.50</div>
+      </div>
+
+      <!-- Right 2 items -->
+      <div class="side-col">
+        <div class="side-item gold">
+          <span class="side-emoji">🦞</span>
+          <div class="side-info">
+            <div class="side-name">The Luxe</div>
+            <div class="side-desc">Wagyu blend, lobster aioli, crispy shallots, baby gem</div>
+          </div>
+          <span class="side-price">$22</span>
+        </div>
+        <div class="side-item">
+          <span class="side-emoji">🌶️</span>
+          <div class="side-info">
+            <div class="side-name">The Inferno</div>
+            <div class="side-desc">Ghost pepper salsa, habanero pickles, crispy shallots</div>
+          </div>
+          <span class="side-price">$14</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom strip: remaining 6 items -->
+    <div class="items-strip">
+
+      <div class="strip-item">
+        <span class="strip-emoji">🌿</span>
+        <div class="strip-name">Garden Crasher</div>
+        <div class="strip-price">$12.75</div>
+        <span class="strip-badge" style="background:#2d7a3e;">Vegan</span>
+      </div>
+
+      <div class="strip-item">
+        <span class="strip-emoji">🍄</span>
+        <div class="strip-name">Mushroom Cloud</div>
+        <div class="strip-price">$13.75</div>
+      </div>
+
+      <div class="strip-item">
+        <span class="strip-emoji">🍳</span>
+        <div class="strip-name">Morning After</div>
+        <div class="strip-price">$13.00</div>
+        <span class="strip-badge" style="background:#8a5e1a;">Brunch</span>
+      </div>
+
+      <div class="strip-item">
+        <span class="strip-emoji">🍗</span>
+        <div class="strip-name">Cluck Smash</div>
+        <div class="strip-price">$13.25</div>
+      </div>
+
+      <div class="strip-item gold">
+        <span class="strip-emoji">🍔</span>
+        <div class="strip-name">Big Smash</div>
+        <div class="strip-price">$13.50</div>
+        <span class="strip-badge">Fan Fave</span>
+      </div>
+
+      <div class="strip-item">
+        <span class="strip-emoji">🌶️</span>
+        <div class="strip-name">The Inferno</div>
+        <div class="strip-price">$14.00</div>
+        <span class="strip-badge">🌶️ Spicy</span>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <span>Add extra patty +$3.00</span>
+    <div class="fdot"></div>
+    <span>GF bun available +$1.50</span>
+    <div class="fdot"></div>
+    <span>Open Anytime</span>
+  </div>
+
+</div>
+
+</body>
+</html>

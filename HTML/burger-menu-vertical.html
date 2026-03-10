@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crimson Grill — Menu</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Neonderthaw&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #E8220A;
+    --yellow: #F5C200;
+    --cream: #FFF8EE;
+    --dark: #1A1008;
+    --mid: #2E1C08;
+    --border: rgba(255,255,255,0.07);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body { width: 100%; height: 100%; }
+
+  body {
+    background: #111;
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+  }
+
+  .board {
+    width: 768px;
+    height: 1024px;
+    background: var(--dark);
+    display: grid;
+    grid-template-rows: 108px 1fr 34px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--dark);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 36px;
+    flex-shrink: 0;
+  }
+  .logo {
+    font-family: "Neonderthaw", cursive;
+    font-size: 68px;
+    line-height: 1;
+    letter-spacing: 1px;
+    color: var(--red);
+  }
+  .logo span { color: var(--yellow); }
+  .tagline {
+    font-size: 12px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(255,248,238,0.65);
+    margin-top: 4px;
+  }
+  .header-right { text-align: right; }
+  .header-tag {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 15px;
+    letter-spacing: 5px;
+    color: var(--cream);
+    opacity: 0.85;
+  }
+  .header-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    color: var(--red);
+    letter-spacing: 3px;
+  }
+
+  /* ITEMS GRID — 3×3 */
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    overflow: hidden;
+  }
+
+  .item {
+    background: var(--mid);
+    padding: 22px 24px 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .item::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--red);
+  }
+  .item.gold::before { background: var(--yellow); }
+
+  .item-top {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .item-emoji {
+    font-size: 32px;
+    line-height: 1;
+    filter: drop-shadow(0 2px 3px rgba(0,0,0,0.4));
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .item-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+    letter-spacing: 0.5px;
+    line-height: 1;
+    color: var(--cream);
+  }
+  .item-desc {
+    font-size: 12px;
+    color: rgba(255,248,238,0.5);
+    line-height: 1.5;
+    margin-top: 6px;
+  }
+  .item-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 10px;
+  }
+  .item-price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    color: var(--yellow);
+    line-height: 1;
+  }
+  .item-badge {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 20px;
+    background: var(--red);
+    color: white;
+    white-space: nowrap;
+    align-self: flex-end;
+  }
+  .item.gold .item-badge {
+    background: var(--yellow);
+    color: var(--dark);
+  }
+
+  /* FOOTER */
+  .footer-strip {
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+  }
+  .footer-strip span {
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: rgba(255,248,238,0.3);
+  }
+  .dot {
+    width: 3px; height: 3px;
+    background: var(--red);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+</style>
+</head>
+<body>
+
+<div class="board">
+
+  <div class="header">
+    <div>
+      <div class="logo">Crimson Grill</div>
+    </div>
+    <div class="header-right">
+      <div class="header-tag">Signature</div>
+      <div class="header-label">BURGERS</div>
+    </div>
+  </div>
+
+  <div class="grid">
+
+    <div class="item gold">
+      <div class="item-top">
+        <span class="item-emoji">🍔</span>
+        <div>
+          <div class="item-name">The Big Smash</div>
+          <div class="item-desc">Double smashed patty, American cheese, caramelized onions, house smash sauce, brioche bun</div>
+        </div>
+      </div>
+      <div class="item-bottom">
+        <span class="item-price">$13.50</span>
+        <span class="item-badge">⭐ Fan Fave</span>
+      </div>
+    </div>
+
+    <div class="item gold">
+      <div class="item-top">
+        <span class="item-emoji">🥓</span>
+        <div>
+          <div class="item-name">Bacon Throne</div>
+          <div class="item-desc">Triple bacon weave, cheddar, pickled jalapeños, smoky BBQ aioli, butter-toasted bun</div>
+        </div>
+      </div>
+      <div class="item-bottom">
+        <span class="item-price">$15.00</span>
+        <span class="item-badge">🔥 Hot Pick</span>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-top">
+        <span class="item-emoji">🧀</span>
+        <div>
+          <div class="item-name">Cheese Avalanche</div>
+          <div class="item-desc">Four-cheese blend — gruyère, white cheddar, brie, American — fig jam, arugula, pretzel bun</div>
+        </div>
+      </div>
+      <div class="item-bottom">
+        <span class="item-price">$14.25</span>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-top">
+        <span class="item-emoji">🌿</span>
+        <div>
+          <div class="item-name">Garden Crasher</div>
+          <div class="item-desc">Black bean & beet patty, whipped avocado, pickled red onion, romaine, lemon tahini</div>
+        </div>
+      </div>
+      <div class="item-bottom">
+        <span class="item-price">$12.75</span>
+        <span class="item-badge" style="background:#2d7a3e;">Vegan</span>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-top">
+        <span class="item-emoji">🌶️</span>
+        <div>
+          <div class="item-name">The Inferno</div>
+          <div class="item-desc">Ghost pepper salsa, ghost jack cheese, habanero pickles, crispy shallots — not for the timid</div>
+        </div>
+      </div>
+      <div class="item-bottom">
+        <span class="item-price">$14.00</span>
+        <span class="item-badge">🌶️ Spicy</span>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-top">
+        <span class="item-emoji">🍄</span>
+        <div>
+          <div class="item-name">Mushroom Cloud</div>
+          <div class="item-desc">Wild mushroom stack, Swiss cheese, truffle aioli, caramelized onions, sourdough bun</div>
+        </div>
+      </div>
+      <div class="item-bottom">
+        <span class="item-price">$13.75</span>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-top">
+        <span class="item-emoji">🍳</span>
+        <div>
+          <div class="item-name">Morning After</div>
+          <div class="item-desc">Fried egg, crispy hash brown patty, American cheese, sriracha mayo, sesame bun</div>
+        </div>
+      </div>
+      <div class="item-bottom">
+        <span class="item-price">$13.00</span>
+        <span class="item-badge" style="background:#b07d2a;">Brunch</span>
+      </div>
+    </div>
+
+    <div class="item gold">
+      <div class="item-top">
+        <span class="item-emoji">🦞</span>
+        <div>
+          <div class="item-name">The Luxe</div>
+          <div class="item-desc">Wagyu blend patty, lobster aioli, crispy shallots, baby gem lettuce, toasted brioche</div>
+        </div>
+      </div>
+      <div class="item-bottom">
+        <span class="item-price">$22.00</span>
+        <span class="item-badge">👑 Premium</span>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-top">
+        <span class="item-emoji">🍗</span>
+        <div>
+          <div class="item-name">Cluck Smash</div>
+          <div class="item-desc">Crispy fried chicken thigh, dill pickle slaw, honey butter, hot sauce drizzle, potato bun</div>
+        </div>
+      </div>
+      <div class="item-bottom">
+        <span class="item-price">$13.25</span>
+        <span class="item-badge">🍗 Chicken</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-strip">
+    <span>Add extra patty +$3.00</span>
+    <div class="dot"></div>
+    <span>GF bun available +$1.50</span>
+    <div class="dot"></div>
+    <span>Open Anytime</span>
+  </div>
+
+</div>
+
+</body>
+</html>
