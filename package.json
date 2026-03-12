@@ -4,9 +4,11 @@
   "displayName": "Horror Burger Shop",
   "description": "Scary burger shop in the middle of nowhere",
   "author": {
-    "name": "maximten"
+    "name": "Maxim Ten"
   },
+  "unity": "6000.0.0",
   "dependencies": {
-    "com.unity.probuilder": "6.0.9"
+    "com.unity.probuilder": "6.0.9",
+    "com.unity.render-pipelines.universal": "17.3.0"
   }
 }
