@@ -29,7 +29,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Base_Albedo:
-        m_Texture: {fileID: 2800000, guid: b528d032b76591b85a9596076b59752b, type: 3}
+        m_Texture: {fileID: 2800000, guid: 03d7e442920d969f5a8ab1fc492dec1d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Base_MaskMap:
@@ -37,7 +37,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Base_Normal:
-        m_Texture: {fileID: 2800000, guid: e1c3b1672d72cbfc9abfed3c198b9cc3, type: 3}
+        m_Texture: {fileID: 2800000, guid: 0629e368612f1613f9c2b232c5006d48, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -61,7 +61,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Layer1_Albedo:
-        m_Texture: {fileID: 2800000, guid: 0fb8307294a51459db62e4a77fb76416, type: 3}
+        m_Texture: {fileID: 2800000, guid: a1d6b5f319b4a667cb05836fa832cfc9, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Layer1_MaskMap:
@@ -69,11 +69,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Layer1_Normal:
-        m_Texture: {fileID: 2800000, guid: c715f093b3e2765c4847072ea6b068d9, type: 3}
+        m_Texture: {fileID: 2800000, guid: 2bebb2875e4493c5ea644b86108d9251, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Layer2_Albedo:
-        m_Texture: {fileID: 2800000, guid: 2ea8eae6a91b19551b2d4b4f23825cb7, type: 3}
+        m_Texture: {fileID: 2800000, guid: 43f2906f1a286c8c2b201f2b05021168, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Layer2_MaskMap:
@@ -81,7 +81,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Layer2_Normal:
-        m_Texture: {fileID: 2800000, guid: 8f564ed86a84461e79165f5e6de79add, type: 3}
+        m_Texture: {fileID: 2800000, guid: 92fced9393191f5c7afff2ff2b35330f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
