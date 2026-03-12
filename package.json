@@ -1,8 +1,8 @@
 {
-  "name": "maximten.horrorshop",
+  "name": "maximten.horrorburgershop",
   "version": "1.0.0",
-  "displayName": "Horror Shop",
-  "description": "Horror-themed asset package supporting URP, HDRP, and Built-in render pipelines.",
+  "displayName": "Horror Burger Shop",
+  "description": "Scary burger shop in the middle of nowhere",
   "author": {
     "name": "maximten"
   },

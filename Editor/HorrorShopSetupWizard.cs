@@ -6,22 +6,9 @@ using UnityEngine.Rendering.Universal;
 
 namespace HorrorShop.Editor
 {
-    [InitializeOnLoad]
     public class HorrorShopSetupWizard : EditorWindow
     {
-        private const string SessionKey = "HorrorShop_WizardShown_v1";
-        private const string ProfilePath = "Packages/maximten.horrorshop/Settings/HorrorShopProfile.asset";
-
-        static HorrorShopSetupWizard()
-        {
-            if (!SessionState.GetBool(SessionKey, false))
-            {
-                SessionState.SetBool(SessionKey, true);
-                EditorApplication.delayCall += ShowWizard;
-            }
-        }
-
-        [MenuItem("Horror Shop/Setup Wizard")]
+        [MenuItem("Tools/Horror Burger Shop/Setup Wizard")]
         public static void ShowWizard()
         {
             var window = GetWindow<HorrorShopSetupWizard>(true, "Horror Shop Setup", true);
@@ -58,6 +45,7 @@ namespace HorrorShop.Editor
             DrawStatusRow("URP Active", true);
             DrawStatusRow("Decal Renderer Feature", HasDecalFeature(urpAsset));
             DrawStatusRow("Adaptive Probe Volumes", HasAPV(urpAsset));
+            DrawStatusRow("AO Method: Interleaved Gradient", HasInterleavedGradientAO(urpAsset));
 
             EditorGUILayout.Space(20);
 
@@ -105,24 +93,12 @@ namespace HorrorShop.Editor
             return prop != null && prop.intValue == 1;
         }
 
-        private bool HasHorrorProfile(UniversalRenderPipelineAsset urpAsset)
+        private bool HasInterleavedGradientAO(UniversalRenderPipelineAsset urpAsset)
         {
-            var profile = AssetDatabase.LoadAssetAtPath<VolumeProfile>(ProfilePath);
-            if (profile == null) return false;
-
-            // URP 17+ (Unity 6): profile lives in URPDefaultVolumeProfileSettings
-            var rpSettings = GraphicsSettings.GetSettingsForRenderPipeline<UniversalRenderPipeline>();
-            if (rpSettings != null)
-            {
-                var so = new SerializedObject(rpSettings);
-                var prop = so.FindProperty("m_VolumeProfile");
-                if (prop != null) return prop.objectReferenceValue == profile;
-            }
-
-            // URP 14/15 fallback: profile lives directly on the pipeline asset
-            var assetSO = new SerializedObject(urpAsset);
-            var assetProp = assetSO.FindProperty("m_VolumeProfile");
-            return assetProp != null && assetProp.objectReferenceValue == profile;
+            var so = new SerializedObject(urpAsset);
+            var prop = so.FindProperty("m_AOMethod");
+            // InterleavedGradient = 1
+            return prop != null && prop.intValue == 1;
         }
 
         // -------------------------------------------------------------------------
@@ -133,6 +109,7 @@ namespace HorrorShop.Editor
         {
             ApplyDecalFeature(urpAsset);
             ApplyAPV(urpAsset);
+            ApplyInterleavedGradientAO(urpAsset);
             AssetDatabase.SaveAssets();
             Repaint();
             Debug.Log("[Horror Shop] URP settings applied successfully.");
@@ -162,6 +139,24 @@ namespace HorrorShop.Editor
             EditorUtility.SetDirty(renderer);
 
             Debug.Log("[Horror Shop] Added DecalRendererFeature to renderer.");
+        }
+
+        private void ApplyInterleavedGradientAO(UniversalRenderPipelineAsset urpAsset)
+        {
+            var so = new SerializedObject(urpAsset);
+            var prop = so.FindProperty("m_AOMethod");
+            if (prop == null)
+            {
+                Debug.LogWarning("[Horror Shop] Could not find m_AOMethod on URP asset.");
+                return;
+            }
+
+            if (prop.intValue == 1) return;
+
+            prop.intValue = 1;
+            so.ApplyModifiedPropertiesWithoutUndo();
+            EditorUtility.SetDirty(urpAsset);
+            Debug.Log("[Horror Shop] AO Method set to Interleaved Gradient.");
         }
 
         private void ApplyAPV(UniversalRenderPipelineAsset urpAsset)
